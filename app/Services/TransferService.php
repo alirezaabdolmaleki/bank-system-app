@@ -15,7 +15,7 @@ class TransferService
     {
         $fee = config('payment.cart.transaction.fee');
 
-        DB::transaction(function () use ($source_card, $destination_card, $amount, $fee) {
+       return DB::transaction(function () use ($source_card, $destination_card, $amount, $fee) {
 
             $fromAccount = Card::where('card_number', $source_card)->lockForUpdate()->firstOrFail();
             $toAccount = Card::where('card_number', $destination_card)->lockForUpdate()->firstOrFail();
@@ -37,6 +37,8 @@ class TransferService
             ]);
 
             $transaction->fee()->create(['amount' => $fee]);
+
+            return $transaction;
         });
     }
 }

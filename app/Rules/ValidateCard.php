@@ -16,7 +16,6 @@ class ValidateCard implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        Log::alert($value);
             if (!CardHelper::isValid($value)) {
                 $fail('card_number', 'The card number is invalid.');
             }
