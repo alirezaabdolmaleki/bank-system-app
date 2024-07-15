@@ -24,10 +24,10 @@ class TransactionSeeder extends Seeder
             $destination_card->save();
 
             $source_card = Card::find($transaction->source_card_id);
-            $source_card->balance = $source_card->balance - $transaction->amount - config('payment.fee');
+            $source_card->balance = $source_card->balance - $transaction->amount - config('payment.cart.transaction.fee');
             $source_card->save();
 
-            $transaction->fee()->create(['amount' => config('payment.fee')]);
+            $transaction->fee()->create(['amount' => config('payment.cart.transaction.fee')]);
         });
     }
 }

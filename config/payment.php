@@ -1,5 +1,12 @@
 <?php
 
 return [
-    'fee' => 500,
+
+    'cart' => [
+        'transaction' => [
+            'fee' => 500,
+            'min' => 1000,
+            'max' => 50000000,
+        ]
+    ],
 ];
