@@ -65,6 +65,11 @@ Start the local development server:
 ```bash
 php artisan serve
 ```
+
+```bash
+php artisan queue:work
+```
+
 Your application should now be running at `http://localhost:8000`.
 
 ## API Endpoints
