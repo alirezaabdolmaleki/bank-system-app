@@ -48,11 +48,12 @@ class TransactionController extends Controller
 
     public function getTopUsers()
     {
-        // زمان ده دقیقه قبل
+        // Define the time ten minutes ago
         $tenMinutesAgo = Carbon::now()->subMinutes(10);
 
-        // پیدا کردن سه کاربری که بیشترین تراکنش را در 10 دقیقه اخیر داشته‌اند
+        // Retrieve the top three users with the most transactions in the last 10 minutes
         $topUsers = User::with(['accounts.cards' => function($query) use ($tenMinutesAgo) {
+            // Load source and destination transactions for each card within the last 10 minutes
             $query->with(['sourceTransactions' => function($query) use ($tenMinutesAgo) {
                 $query->where('created_at', '>=', $tenMinutesAgo)->orderBy('created_at', 'desc')->take(10);
             }, 'destinationTransactions' => function($query) use ($tenMinutesAgo) {
@@ -61,6 +62,7 @@ class TransactionController extends Controller
         }])
         ->get()
         ->sortByDesc(function ($user) {
+            // Sort users by the total number of transactions in descending order
             return $user->accounts->sum(function ($account) {
                 return $account->cards->sum(function ($card) {
                     return $card->sourceTransactions->count() + $card->destinationTransactions->count();
@@ -69,7 +71,7 @@ class TransactionController extends Controller
         })
         ->take(3);
 
-        // جمع‌آوری تعداد تراکنش‌ها و گرفتن 10 تراکنش آخر هر کاربر
+        // Calculate the number of transactions and get the last 10 transactions for each user
         $topUsers = $topUsers->map(function ($user) {
             $transactionCount = 0;
             $user->accounts->each(function ($account) use (&$transactionCount) {
@@ -77,14 +79,15 @@ class TransactionController extends Controller
                     $transactionCount += $card->sourceTransactions->count() + $card->destinationTransactions->count();
                 });
             });
+            // Add the transaction count to the user object
             $user->transaction_count = $transactionCount;
             return $user;
         });
 
-        // تبدیل کاربران به آرایه
+        // Convert the collection to an array without numerical keys
         $topUsersArray = $topUsers->values()->all();
 
+        // Return the users as a JSON response
         return response()->json($topUsersArray);
     }
-
 }
