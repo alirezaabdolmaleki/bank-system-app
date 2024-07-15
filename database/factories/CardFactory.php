@@ -19,6 +19,7 @@ class CardFactory extends Factory
 
         return [
             'card_number' => rand(1235,9999) . rand(1235,9999) . rand(1235,9999) . rand(1235,9999),
+            'balance'=> rand(1000000,10000000) . 000
         ];
     }
 }

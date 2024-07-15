@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('fees', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaction_id')->constrained('transactions')->onDelete('cascade');
-            $table->bigInteger('fee_amount'); // مبلغ هزینه به تومان
+            $table->bigInteger('amount'); // مبلغ هزینه به تومان
             $table->timestamps();
         });
     }

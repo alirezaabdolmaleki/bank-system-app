@@ -20,7 +20,7 @@ class TransactionFactory extends Factory
         return [
             'source_card_id' => $this->faker->randomElement(Card::pluck('id')),
             'destination_card_id'=> $this->faker->randomElement(Card::pluck('id')),
-            'amount' => rand(10000, 1000000), // مبلغ به تومان
+            'amount' => rand(1, 50000) . 000 // مبلغ به تومان
         ];
     }
 }

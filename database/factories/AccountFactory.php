@@ -18,7 +18,7 @@ class AccountFactory extends Factory
     public function definition(): array
     {
         return [
-            'account_number' => rand(100000000000,999999999999),
+            'account_number' => rand(10000000,999999999) . 000,
         ];
     }
 }
