@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('transfer', [TransactionController::class, 'transfer']);
+Route::get('top-users', [TransactionController::class, 'getTopUsers']);

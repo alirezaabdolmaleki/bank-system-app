@@ -13,4 +13,20 @@ class Card extends Model
     {
         return $this->belongsTo( Account::class);
     }
+
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function sourceTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'source_card_id');
+    }
+
+    public function destinationTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'destination_card_id');
+    }
 }
