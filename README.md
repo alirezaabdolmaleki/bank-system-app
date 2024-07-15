@@ -1,5 +1,5 @@
 
-# Laravel API Project README
+# Bank System App
 
 ## Project Overview
 This project involves implementing a Laravel-based API system for a bank scenario. The goal is to create a system that manages user accounts, card transactions, and communicates via SMS services.
@@ -15,8 +15,8 @@ This project involves implementing a Laravel-based API system for a bank scenari
 ### Step 1: Clone the Repository
 Clone this repository from GitHub or GitLab to your local machine:
 ```bash
-git clone <repository_url>
-cd <repository_directory>
+git clone https://github.com/alirezaabdolmaleki/bank-system-app.git
+cd bank-system-app
 ```
 
 ### Step 2: Install Dependencies
@@ -85,29 +85,19 @@ Your application should now be running at `http://localhost:8000`.
   - Response:
     ```json
     {
-      "status": "success",
-      "transaction_id": "tx12345"
+      Status payment
     }
     ```
 
-### 2. User Management
-- **Get top User List**
+### 2. Users
+- **Get User List**
   ```
-  GET /api/users
+  GET /api/top-users
   ```
   - Response:
     ```json
     [
-      {
-        "id": 1,
-        "name": "John Doe",
-        "email": "john.doe@example.com"
-      },
-      {
-        "id": 2,
-        "name": "Jane Smith",
-        "email": "jane.smith@example.com"
-      }
+      ....
     ]
     ```
 
@@ -131,3 +121,17 @@ Your application should now be running at `http://localhost:8000`.
 - Migrate and seed the database on the server.
 - Use a service like GitLab or GitHub for continuous integration and deployment.
 
+## Contribution
+- Fork the repository.
+- Create a new branch (`git checkout -b feature-branch`).
+- Make your changes.
+- Commit your changes (`git commit -m 'Add some feature'`).
+- Push to the branch (`git push origin feature-branch`).
+- Create a new Pull Request.
+
+
+For any further questions, feel free to contact the project maintainer.
+
+---
+
+This README provides a comprehensive guide to setting up, developing, and deploying the Laravel API project. Make sure to follow the steps carefully and refer to the documentation as needed. Happy coding!
