@@ -1,66 +1,133 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Laravel API Project README
 
-## About Laravel
+## Project Overview
+This project involves implementing a Laravel-based API system for a bank scenario. The goal is to create a system that manages user accounts, card transactions, and communicates via SMS services.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Prerequisites
+- PHP (preferably the latest version)
+- Composer
+- Laravel framework
+- A database management system (MySQL, PostgreSQL, etc.)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation and Setup
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Step 1: Clone the Repository
+Clone this repository from GitHub or GitLab to your local machine:
+```bash
+git clone <repository_url>
+cd <repository_directory>
+```
 
-## Learning Laravel
+### Step 2: Install Dependencies
+Use Composer to install the necessary dependencies:
+```bash
+composer install
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Step 3: Set Up Environment Variables
+Copy the `.env.example` file to `.env` and update the environment variables as needed:
+```bash
+cp .env.example .env
+```
+Update the following variables with your own values:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_username
+DB_PASSWORD=your_database_password
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+KAVEHNEGAR_API_KEY=your_kavenegar_api_key
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Step 4: Generate Application Key
+Generate the application key:
+```bash
+php artisan key:generate
+```
 
-## Laravel Sponsors
+### Step 5: Migrate the Database
+Run the migrations to set up your database:
+```bash
+php artisan migrate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Step 6: Seed the Database
+(Optional) Seed the database with initial data:
+```bash
+php artisan db:seed
+```
 
-### Premium Partners
+### Step 7: Serve the Application
+Start the local development server:
+```bash
+php artisan serve
+```
+Your application should now be running at `http://localhost:8000`.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## API Endpoints
 
-## Contributing
+### 1. Account Management
+- **Transfer Funds**
+  ```
+  POST /api/transfer
+  ```
+  - Request Body:
+    ```json
+    {
+      "source_card": "6219861906788939",
+      "destination_card": "6037691626105324",
+      "amount": 1000
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "status": "success",
+      "transaction_id": "tx12345"
+    }
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 2. User Management
+- **Get top User List**
+  ```
+  GET /api/users
+  ```
+  - Response:
+    ```json
+    [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john.doe@example.com"
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "jane.smith@example.com"
+      }
+    ]
+    ```
 
-## Code of Conduct
+## Features
+1. **User Account Management:** Each user can have multiple accounts with unique account numbers.
+2. **Transaction Handling:** Perform fund transfers between accounts, with validation for minimum and maximum transaction amounts.
+3. **SMS Notifications:** Send transaction notifications through SMS services like Kavenegar and Ghasedak.
+4. **API Security:** Ensures that only validated card numbers are processed, and adheres to RESTful API standards.
+5. **Modular Design:** Easy to add new SMS service providers.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Development Notes
+- All API endpoints are designed to be RESTful.
+- Follow best practices in coding, including the use of design patterns where applicable.
+- Ensure thorough testing of all functionalities before deployment.
+- Consider using GitLab or GitHub for version control and collaboration.
+- Documentation of the code and API endpoints is crucial for maintenance and future development.
 
-## Security Vulnerabilities
+## Deployment
+- Deploy the application on a server with Laravel support.
+- Set up your database and environment variables on the server.
+- Migrate and seed the database on the server.
+- Use a service like GitLab or GitHub for continuous integration and deployment.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
