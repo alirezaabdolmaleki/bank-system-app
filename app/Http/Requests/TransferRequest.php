@@ -24,8 +24,8 @@ class TransferRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'source_card' => ['required', new ValidateCard(), 'string', 'regex:/^\d{16}$/'],
-            'destination_card' => ['required', new ValidateCard(), 'string', 'regex:/^\d{16}$/'],
+            'source_card' => ['required', new ValidateCard(), 'string', 'regex:/^\d{16}$/', 'exists:cards,card_number'],
+            'destination_card' => ['required', new ValidateCard(), 'string', 'regex:/^\d{16}$/', 'exists:cards,card_number'],
             'amount' => ['required', 'numeric', 'min:' . config('payment.cart.transaction.min'), 'max:' . config('payment.cart.transaction.max')]
         ];
     }

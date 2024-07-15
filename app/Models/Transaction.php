@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
+    
+    protected $fillable = [
+        'source_card_id',
+        'destination_card_id',
+        'amount'
+    ];
 
     public function fee()
     {
